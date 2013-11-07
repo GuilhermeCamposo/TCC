@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Achou Festas</string>
+    <string name="go">Ir</string>
+    <string name="going">Vou</string>
+    <string name="distance">Distância</string>
+    <string name="search">Procurar</string>
+    <string name="event">Evento</string>
+    <string name="near">Proximidades</string>
+    <string name="login_incompleto">Preencha os campos corretamente</string>
+    <string name="sem_conexao">sem conexão com a internet</string>
+    <string name="excecao_generica">Algum erro ocorreu durante a operação</string>
+    <string name="gps_inativo">Por favor, ative seu GPS</string>
+    <string name="demora_coordenadas">demora em conseguir sua localização. Tente de novo.</string>
+    <string name="mensagem_carregando">carregando</string>
+    <string name="cadastro_sucesso">Cadastro Efetivado</string>
+
+</resources>

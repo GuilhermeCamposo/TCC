@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="azul_escuro">#ff015368</color>
+    <color name="azul_medio">#ff01a5be</color>
+    <color name="azul_claro">#ff1fb4ec</color>
+    <color name="vermelho_escuro">#ff993333</color>
+    <color name="actionbar_divisor">#ff494949</color>
+    <color name="branco">#ffffffff</color>
+    <color name="cinza">#ffeeeeee</color>
+    <color name="cinza_header">#ffaaaaaa</color>
+    <color name="cinza_escuro">#ff333333</color>
+</resources>

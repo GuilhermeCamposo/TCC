@@ -1,0 +1,33 @@
+<rich:modalPanel id="dialogoAquarde" autosized="true"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<a4j:form>
+		<div class="modal" style="min-height:200px; width:360px;">
+			<center>
+				<div class="modal_interna_sucesso">	
+					<center>
+						<div class="texto_titulo_alerta_modal" style="width:80px; text-align:center;">Aviso!</div>
+					</center>
+					<div class="separador_modal">
+						<img height="1" alt="" src="../img/img_link.gif"/>
+					</div>
+					<center>
+						<div class="label" style="height:25px; width:200px; margin:40px 0px 20px 0px; text-align:center">
+							AGUARDE
+						</div>	
+						<div style="position: relative; margin-top: 10px; text-align: center">
+							<h:graphicImage value="" url="../img/img_meter.gif" />
+						</div>	
+						<br /><br />
+					</center>
+				</div>	
+			</center>
+		</div>
+	</a4j:form>
+</rich:modalPanel>

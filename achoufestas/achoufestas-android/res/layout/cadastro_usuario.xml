@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="3dp" >
+
+    <TextView
+        android:id="@+id/cadastro_txt_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/cadastro_etxt_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cadastro_txt_nome"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/cadastro_txt_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cadastro_etxt_nome"
+        android:text="E-mail" 
+        android:textAppearance="?android:attr/textAppearanceLarge"  />
+
+    <EditText
+        android:id="@+id/cadastro_etxt_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cadastro_txt_email"
+          android:layout_below="@+id/cadastro_etxt_nome"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/cadastro_txt_senha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cadastro_etxt_email"
+        android:text="Senha"
+        android:textAppearance="?android:attr/textAppearanceLarge"  />
+    
+      <EditText
+        android:id="@+id/cadastro_etxt_senha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cadastro_txt_senha"
+          android:layout_below="@+id/cadastro_etxt_email"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/cadastro_btn_cadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cadastro_etxt_senha"
+        android:text="Cadastrar" />
+
+</RelativeLayout>

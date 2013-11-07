@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"  
+		xmlns:f="http://java.sun.com/jsf/core" 
+      	xmlns:h="http://java.sun.com/jsf/html"
+      	xmlns:ui="http://java.sun.com/jsf/facelets"
+      	xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:rich="http://richfaces.org/rich">
+    <h:body>
+    	<ui:composition template="/layout/template.xhtml">
+    		<ui:define name="conteudo">
+				<h:form id="login">
+					<fieldset>
+						<legend>Login</legend>
+							<label>Email:</label>
+			         		<h:inputText id="Email" value="#{principalMBean.email}" />  
+			            <br />
+							<label>Senha:</label>
+			         		<h:inputText id="senha" value="#{principalMBean.senha}" />
+			            <br />
+			            <a4j:commandButton
+			            	render="exibeMensagem"
+			            	onCompleted="#{rich:component('exibeMensagem')}.show();"
+			            	id="logar_usuario" 
+			            	status="status"
+			            	value="LOGAR" 
+			            	action="#{principalMBean.logarUsuario()}" />
+		            </fieldset>
+		        </h:form>
+		        
+		        
+		        <br></br>
+		        
+		        <h:form id="cadastro_produtor">
+		        
+		        <fieldset>
+					<legend>Cadastre-se</legend>
+						
+			        	<label>Nome:</label>
+			         		<h:inputText id="nome" value="#{principalMBean.novoUsuario.nome}" />  
+			            	<br />
+			            <label>CPF:</label>
+			         		<h:inputText id="cpf" value="#{principalMBean.novoUsuario.produtor.cpf}" />  
+			            <br />
+							<label>Email:</label>
+			         		<h:inputText id="email" value="#{principalMBean.novoUsuario.email}" />  
+			            <br />
+							<label>Senha:</label>
+			         		<h:inputSecret id="senha" value="#{principalMBean.novoUsuario.senha}" />
+			            <br />
+			            <h:commandButton
+			            		id="cadastrar_produtor" 
+			            		render="exibeMensagem"
+			            		onCompleted="#{rich:component('exibeMensagem')}.show();"
+			            		value="CADASTRAR"
+			            		action="#{principalMBean.cadastrarProdutor()}" />
+			         </fieldset>
+			       
+		        </h:form>
+		        
+	        </ui:define>
+    	</ui:composition>
+    </h:body>
+</f:view>

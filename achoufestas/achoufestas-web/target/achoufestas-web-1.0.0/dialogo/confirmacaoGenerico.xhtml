@@ -1,0 +1,76 @@
+<rich:modalPanel id="#{!empty idModal ? idModal : ''}" autosized="true" width="200" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	
+	<a4j:form id="frmConfirmacaoAcao#{idModal}">
+		
+		<div class="modal" style="min-height:200px; width:360px;">
+			<center>
+				<div class="modal_interna_sucesso">		
+					<div class="texto_titulo_exclusao_modal">
+						<img src="../img/img_exclusao.gif" width="25px" height="25px" />
+						<span>#{messages['display.atencao']}!</span>
+					</div>
+					<div class="separador_modal">
+						<img height="1" alt="" src="../img/img_link.gif"/>
+					</div>
+					<div class="texto_modal_alerta">#{messages[mensagemKey]}</div>
+					<!--INICIO Botoes--> 
+					<center>
+						<s:div id="divBotoes#{idModal}" style="height:25px; width:130px; margin:55px 0px 35px 0px;"> 
+							<div class="distancia_botoes" style="margin-left:0px" > 
+								<div class="botao_img_esquerda" />
+								<a4j:commandLink
+									action="#{bean[sim]}"
+									reRender="#{reRenderSim}"
+									ajaxSingle="true"
+									status="status"
+									oncomplete="#{rich:component(!empty idModal ? idModal : 'dialogoConfirmacao')}.hide();"
+									styleClass="botao_texto"> 
+									<div class="botao_img_centro">
+										#{messages['display.sim']}
+									</div>
+								</a4j:commandLink> 
+								<div class="botao_img_direita" />
+							</div>
+							<div class="distancia_botoes" > 
+								<div class="botao_img_voltar_esquerda" style="margin-left:0px;"></div>
+								 
+								<a4j:commandLink
+										ajaxSingle="true"
+										reRender='#{empty reRenderNao ? null : reRenderNao}'
+										rendered="#{empty nao}"
+										onclick="#{rich:component(!empty idModal ? idModal : 'dialogoConfirmacao')}.hide();" 
+										styleClass="botao_texto"> 
+									<div class="botao_img_voltar_centro">
+										#{messages['display.nao']}
+									</div>
+								</a4j:commandLink>
+
+								<a4j:commandLink
+										action="#{bean[nao]}"
+										ajaxSingle="true"
+										rendered="#{!empty nao}"
+										reRender='#{empty reRenderNao ? null : reRenderNao}'
+										oncomplete="#{rich:component(!empty idModal ? idModal : 'dialogoConfirmacao')}.hide();" 
+										styleClass="botao_texto"> 
+									<div class="botao_img_voltar_centro">
+										#{messages['display.nao']}
+									</div>
+								</a4j:commandLink>
+								
+								<div class="botao_img_voltar_direita"></div>
+							</div>						
+						</s:div>	
+					</center>
+					<!--FIM Botoes--> 
+				</div>
+			</center>
+		</div>
+	</a4j:form>
+	
+</rich:modalPanel>

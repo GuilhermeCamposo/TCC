@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+	<h:body>
+		<ui:composition template="/layout/template.xhtml">
+			<ui:define name="conteudo">
+
+				<div id="cadastro_evento" style="float: left; width: 400px">
+					<h:form id="cadastro_evento" prependId="false">
+						<fieldset>
+							<legend>Cadastre o evento</legend>
+
+							<label>Nome:</label>
+							<h:inputText id="nome"
+								value="#{cadastroEventoMBean.eventoNovo.nome}" />
+							<br /> <label>Descrição:</label>
+							<h:inputText id="descricao"
+								value="#{cadastroEventoMBean.eventoNovo.descricao}" />
+							<br /> <label>Data do Evento:</label>
+							<h:inputText id="data_fim"
+								value="#{cadastroEventoMBean.eventoNovo.dataEvento}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:inputText>
+							<br />
+
+
+							<h:commandButton id="cadastrar_evento" render="exibeMensagem"
+								onCompleted="#{rich:component('exibeMensagem')}.show();"
+								value="CADASTRAR"
+								action="#{cadastroEventoMBean.cadastrarEvento()}" />
+						</fieldset>
+					</h:form>
+				</div>
+
+				<div id="map_canvas"
+					style="float: left; width: 300px; height: 354px; margin-left: 40px" />
+			</ui:define>
+		</ui:composition>
+	</h:body>
+</f:view>

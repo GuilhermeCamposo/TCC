@@ -1,0 +1,45 @@
+<rich:modalPanel id="operacaoEfetuada" autosized="true"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<a4j:form>
+		<div class="modal" style="min-height:200px; width:360px;">
+			<center>
+				<div class="modal_interna_sucesso">	
+					<center>
+						<div class="texto_titulo_sucesso_modal" style="width:80px; text-align:center;">Operação Efetuada!</div>
+					</center>
+					<div class="separador_modal">
+						<img height="1" alt="" src="../img/img_link.gif"/>
+					</div>
+					<center>
+						<div class="label" style="height:25px; width:200px; margin:40px 0px 20px 0px; text-align:center">
+							OPERAÇÂO EFETUADA
+						</div>							
+						
+						<div style="height:25px; width:95px; margin:55px 0px 35px 0px;">
+							<div class="distancia_botoes" style="margin-left:0px">
+								<div class="botao_img_esquerda" />
+								<div class="botao_img_centro">
+									<a4j:commandLink																		
+										value="Fechar" 
+										onclick="Richfaces.hideModalPanel('operacaoEfetuada')"
+										styleClass="botao_texto"> 
+										<div class="botao_img_centro">										
+										</div>
+									</a4j:commandLink> 
+								</div>
+								<div class="botao_img_direita" />
+							</div>						
+						</div>												 											
+					</center>
+				</div>	
+			</center>
+		</div>
+	</a4j:form>
+</rich:modalPanel>

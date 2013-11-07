@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>achoufestas</artifactId>
+		<groupId>br.com.achoufestas</groupId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>achoufestas-ear</artifactId>
+	<packaging>ear</packaging>
+
+	<name>Achou Festas! EAR </name>
+
+	<dependencies>
+		<dependency>
+			<groupId>br.com.achoufestas</groupId>
+			<artifactId>achoufestas-ejb</artifactId>
+			<version>1.0.0</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>br.com.achoufestas</groupId>
+			<artifactId>achoufestas-web</artifactId>
+			<version>1.0.0</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>br.com.achoufestas</groupId>
+			<artifactId>achoufestas-webservices</artifactId>
+			<version>1.0.0</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>br.com.achoufestas</groupId>
+			<artifactId>achoufestas-lib</artifactId>
+			<version>1.0.0</version>
+			<type>jar</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<version>6</version>
+					<defaultLibBundleDir>/lib</defaultLibBundleDir>
+					<modules>
+						<webModule>
+							<groupId>br.com.achoufestas</groupId>
+							<artifactId>achoufestas-web</artifactId>
+							<contextRoot>/site</contextRoot>
+						</webModule>
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

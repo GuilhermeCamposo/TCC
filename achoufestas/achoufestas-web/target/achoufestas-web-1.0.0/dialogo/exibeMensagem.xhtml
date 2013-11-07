@@ -1,0 +1,30 @@
+<rich:popupPanel id="exibeMensagem" modal="true" autosized="true" show="#{facesContext.maximumSeverity != null}" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	zindex="999999"
+	>
+
+	<div class="modal" style="width:360px;">
+			<div class="modal_interna_sucesso">
+				<h:form id="frmMensagem">
+						<rich:messages />
+						<div style="height:45px; width:68px; margin-top:40px">
+							<div class="distancia_botoes" style="margin:10px 0px 10px 0px">
+								<div class="botao_img_esquerda" />
+								<div class="botao_img_centro">
+									<a4j:commandLink value="OK" styleClass="botao_texto"
+												ajaxSingle="true" oncomplete="#{rich:component('exibeMensagem')}.hide();" 
+												reRender="exibeMensagem"/>
+								</div>
+								<div class="botao_img_direita" />
+							</div>
+						</div>
+				</h:form>
+			</div>
+	</div>
+</rich:popupPanel>

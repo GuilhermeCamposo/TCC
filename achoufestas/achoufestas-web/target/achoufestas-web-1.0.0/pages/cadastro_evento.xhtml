@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"  
+		xmlns:f="http://java.sun.com/jsf/core" 
+      	xmlns:h="http://java.sun.com/jsf/html"
+      	xmlns:ui="http://java.sun.com/jsf/facelets"
+      	xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:rich="http://richfaces.org/rich">
+        
+
+    <h:body>
+    	<ui:composition template="/layout/template.xhtml">
+    		<ui:define name="conteudo">
+ 		
+ 		 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=true" />
+   				<script>
+		   			var map;
+		
+				function initialize() {
+				  var mapOptions = {
+				    zoom: 6,
+				    mapTypeId: google.maps.MapTypeId.ROADMAP
+				  };
+				  map = new google.maps.Map(document.getElementById('map_canvas'),
+				      mapOptions);
+				
+				  // Try HTML5 geolocation
+				  if(navigator.geolocation) {
+				    navigator.geolocation.getCurrentPosition(function(position) {
+				      var pos = new google.maps.LatLng(position.coords.latitude,
+				                                       position.coords.longitude);
+				
+				      var infowindow = new google.maps.InfoWindow({
+				        map: map,
+				        position: pos,
+				        content: 'Verifique se o lugar está correto no mapa.'
+				      });
+				
+				      map.setCenter(pos);
+				    }, function() {
+				      handleNoGeolocation(true);
+				    });
+				  } else {
+				    // Browser doesn't support Geolocation
+				    handleNoGeolocation(false);
+				  }
+				}
+				
+				function handleNoGeolocation(errorFlag) {
+				  if (errorFlag) {
+				    var content = 'Error: The Geolocation service failed.';
+				  } else {
+				    var content = 'Error: Your browser doesn\'t support geolocation.';
+				  }
+				
+				  var options = {
+				    map: map,
+				    position: new google.maps.LatLng(60, 105),
+				    content: content
+				  };
+				
+				  var infowindow = new google.maps.InfoWindow(options);
+				  map.setCenter(options.position);
+				}
+				
+				google.maps.event.addDomListener(window, 'load', initialize);
+
+				function carregarEndereco(){
+					var lat,lng;
+					var endereco = document.getElementById('endereco').value ;
+					geocoder = new google.maps.Geocoder();
+					geocoder.geocode({'address':endereco}, function(results, status){
+						if(status = google.maps.GeocoderStatus.OK){
+							latlng = results[0].geometry.location;
+							lat = results[0].geometry.location.lat();
+							lng = results[0].geometry.location.lng();
+							markerInicio = new google.maps.Marker({position: latlng,map: map});
+							map.setCenter(latlng);
+							document.getElementById('latitude').value  = lat;
+							document.getElementById('longitude').value  = lng;
+						}else{
+							document.getElementById('latitude').value  = '';
+							document.getElementById('longitude').value  = '';
+						}
+					});
+				}
+		
+		    </script>
+    
+    		
+    			<div id="cadastro_evento" style="float: left; width: 400px">
+			        <h:form id="cadastro_evento"  prependId="false">
+				        <fieldset>
+							<legend>Cadastre o evento</legend>
+								
+					        	<label>Nome:</label>
+					         		<h:inputText id="nome" value="#{cadastroEventoMBean.eventoNovo.nome}" />  
+					            	<br />
+					            	
+					            <label>Descrição:</label>
+					         		<h:inputText id="descricao" value="#{cadastroEventoMBean.eventoNovo.descricao}" /> 
+					         	   <br />
+					         	 
+					         	<label>Data Início:</label>
+					         		<h:inputText id="data_ini"  value="#{cadastroEventoMBean.eventoNovo.dataInicio}" > 
+					         		 	<f:convertDateTime pattern="dd/MM/yyyy" />
+					         		</h:inputText>
+					            	<br />
+					            	
+								<label>Data Fim:</label>
+					         		<h:inputText id="data_fim" value="#{cadastroEventoMBean.eventoNovo.dataFim}"> 
+					         			<f:convertDateTime pattern="dd/MM/yyyy" />
+					         		</h:inputText>
+					            	<br />
+					         	   
+					         	<label>Endereço:</label>
+					         		<h:inputText id="endereco" value="#{cadastroEventoMBean.eventoNovo.logradouro}"> 	
+					         			<f:ajax execute="@this" event="change" render="@form" onevent="carregarEndereco" />
+					         		</h:inputText>
+					            	<br />
+					            	
+					            <label>Complemento:</label>
+					         		<h:inputText id="complemento" value="#{cadastroEventoMBean.eventoNovo.complemento}" /> 	
+					            	<br />	
+					            	
+					            <label>CEP:</label>
+					         		<h:inputText id="cep" value="#{cadastroEventoMBean.eventoNovo.cep}" /> 	
+					            	<br />	
+					            	
+					            <label>Bairro:</label>
+					         		<h:inputText id="bairro" value="#{cadastroEventoMBean.eventoNovo.bairro}" /> 	
+					            	<br />	
+					            	
+					            <label>Cidade:</label>
+					         		<h:inputText id="cidade" value="#{cadastroEventoMBean.eventoNovo.cidade}" /> 	
+					            	<br />
+					            
+					            <label>Longitute:</label>
+					         		<h:inputText id="longitude" value="#{cadastroEventoMBean.eventoNovo.longitude}" /> 	
+					            	<br />
+					            	
+					            <label>Latitude:</label>
+					         		<h:inputText id="latitude" value="#{cadastroEventoMBean.eventoNovo.latitude}" /> 	
+					            	<br />		
+					            	
+					            <h:commandButton
+					            		id="cadastrar_evento"
+					            		render="exibeMensagem"
+					            		onCompleted="#{rich:component('exibeMensagem')}.show();"
+					            		value="CADASTRAR"
+					            		action="#{cadastroEventoMBean.cadastrarEvento()}" />
+					       </fieldset>
+			        	</h:form>
+			        </div>
+			        
+			        <div id="map_canvas" style="float:left; width:300px; height:354px; margin-left: 40px">
+			        
+			        
+			        </div>
+			        
+			        
+		        </ui:define>
+    	</ui:composition>
+    </h:body>
+</f:view>

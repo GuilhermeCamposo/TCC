@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Titulo2Text" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/azul_escuro</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="EventName" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/azul_escuro</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Titulo4Text" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/cinza_escuro</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ListaItemText" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/cinza_escuro</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="MsgFinalizadaText" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/vermelho_escuro</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="tab" parent="@android:style/Widget.TabWidget">
+        <item name="android:background">@color/cinza</item>
+    </style>
+
+</resources>
