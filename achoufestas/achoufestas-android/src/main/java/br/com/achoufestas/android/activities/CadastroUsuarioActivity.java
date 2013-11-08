@@ -64,7 +64,7 @@ public class CadastroUsuarioActivity extends ActivityLayer {
 
 			DefaultMessage retorno = (DefaultMessage) message
 					.getOriginalMessage();
-			if (retorno.getErro() != null) {
+			if (retorno.getException() != null) {
 				mensagemAviso(R.string.excecao_generica);
 			} else {
 				mensagemAviso(R.string.cadastro_sucesso);

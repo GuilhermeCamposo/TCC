@@ -10,11 +10,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.achoufestas.android.R;
-import br.com.achoufestas.android.listener.IrListenter;
 import br.com.achoufestas.lib.entidades.EventoApp;
 import br.com.achoufestas.lib.entidades.UsuarioApp;
 
@@ -24,7 +22,6 @@ public class EventoAdapter extends ArrayAdapter<EventoApp> {
 	private Context context;
 	private View view;
 	private UsuarioApp user;
-	private ActivityLayer tela;
 
 	public int getCount() {
 		return items.size();
@@ -34,7 +31,6 @@ public class EventoAdapter extends ArrayAdapter<EventoApp> {
 		super(atividade.getApplicationContext(), textViewResourceId, items);
 		user = ((HomeActivity) atividade).getUser();
 		this.items = items;
-		tela = (ActivityLayer) atividade;
 		this.context = atividade.getApplicationContext();
 	}
 
@@ -53,21 +49,15 @@ public class EventoAdapter extends ArrayAdapter<EventoApp> {
 		if (evento != null) {
 			TextView local = (TextView) view.findViewById(R.id.lblLocal);
 			TextView nome = (TextView) view.findViewById(R.id.lblNome);
-			Button botao = (Button) view.findViewById(R.id.btnIr);
+		
 			ImageView imagem = (ImageView) view.findViewById(R.id.ivFlayer);
 
 			//UrlImageViewHelper.setUrlDrawable(imagem, evento.getFoto());
 			
 			imagem.setOnClickListener(new ImageListener(evento));
-			botao.setOnClickListener(new IrListenter(tela, evento, user));
-			
-			if(user.getEventosMarcados() != null && user.getEventosMarcados().contains(evento)){
-				botao.setText(R.string.going);
-			}
 			
 			nome.setText(evento.getNome());
 			local.setText(evento.getLocal());
-
 		}
 		return view;
 	}

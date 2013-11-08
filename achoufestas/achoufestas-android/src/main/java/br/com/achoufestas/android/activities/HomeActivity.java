@@ -9,7 +9,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -151,9 +150,8 @@ public class HomeActivity extends ActivityLayer implements LocationListener {
 		} else {
 			if (message.getOriginalMessage() instanceof ListagemEventosMessage) {
 				list = (ListagemEventosMessage) message.getOriginalMessage();
-				if (list.getErro() != null) {
+				if (list.getException() != null) {
 					mensagemAviso(R.string.excecao_generica);
-					Log.e("Server", list.getErro());
 					erro = true;
 				} else {
 					eventos = list.getEventos();

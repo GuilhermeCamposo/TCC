@@ -15,7 +15,6 @@ import br.com.achoufestas.ejb.bean.UsuarioBean;
 import br.com.achoufestas.ejb.entidade.Usuario;
 import br.com.achoufestas.ejb.expection.DALException;
 import br.com.achoufestas.lib.entidades.Coordenada;
-import br.com.achoufestas.lib.entidades.Resposta;
 import br.com.achoufestas.lib.entidades.UsuarioApp;
 import br.com.achoufestas.lib.messages.DefaultMessage;
 import br.com.achoufestas.lib.messages.ListagemEventosMessage;
@@ -48,8 +47,9 @@ public class AchouFestasResource {
 			eventos.setEventos(EventoConverter.toApp(eventoBean
 					.getEventosPorCoordenada(coordenada.getLatitude(),
 							coordenada.getLongitude())));
-		} catch (DALException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			eventos.setException(e);
 		}
 
 		return eventos;
@@ -66,7 +66,7 @@ public class AchouFestasResource {
 		try {
 			message.setEventos(EventoConverter.toApp(eventoBean
 					.getEventosPorNome(nome)));
-		} catch (DALException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -102,11 +102,10 @@ public class AchouFestasResource {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			message.setErro(e);
+			message.setException(e);
 		}
 
 		return message;
-
 	}
 
 	@POST
@@ -123,7 +122,7 @@ public class AchouFestasResource {
 			usuarioBean.salvarUsuario(UsuarioConverter.toDatabase(user));
 
 		} catch (DALException e) {
-			message.setErro(new Exception());
+			message.setException(new Exception());
 		}
 
 		return message;
@@ -133,25 +132,35 @@ public class AchouFestasResource {
 	@POST
 	@Path("/marcar_evento")
 	@Consumes("application/json")
-	public Resposta marcarEvento(MarcacaoEventoMessage message) {
+	public DefaultMessage marcarEvento(MarcacaoEventoMessage message) {
 		LOG.info("Recebeu pedido de marcação");
 
-		usuarioBean.associarUsuarioEvento(message.getIdEvento(),
-				message.getIdUsuario());
+		DefaultMessage dmessage = new DefaultMessage();
 
-		return Resposta.VALID;
+		try {
+			usuarioBean.associarUsuarioEvento(message.getIdEvento(),
+					message.getIdUsuario());
+		} catch (Exception e) {
+			dmessage.setException(e);
+		}
+
+		return dmessage;
 	}
 
 	@POST
 	@Path("/desmarcar_evento")
 	@Consumes("application/json")
-	public Resposta desmarcarEvento(MarcacaoEventoMessage message) {
+	public DefaultMessage desmarcarEvento(MarcacaoEventoMessage message) {
 		LOG.info("Recebeu pedido de marcação");
+		DefaultMessage dmessage = new DefaultMessage();
+		try {
+			usuarioBean.desassociarUsuarioEvento(message.getIdEvento(),
+					message.getIdUsuario());
+		} catch (Exception e) {
+			dmessage.setException(e);
+		}
 
-		usuarioBean.desassociarUsuarioEvento(message.getIdEvento(),
-				message.getIdUsuario());
-
-		return Resposta.VALID;
+		return dmessage;
 	}
 
 }

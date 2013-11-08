@@ -20,7 +20,6 @@ import br.com.achoufestas.android.exception.GenericException;
 import br.com.achoufestas.android.exception.SemConexaoException;
 import br.com.achoufestas.android.threads.message.EnvelopeMessage;
 import br.com.achoufestas.android.util.ConexaoUtil;
-import br.com.achoufestas.android.util.HttpClient;
 import br.com.achoufestas.lib.entidades.EventoApp;
 import br.com.achoufestas.lib.messages.ListagemEventosMessage;
 import br.com.achoufestas.lib.messages.LoginMessage;
@@ -115,7 +114,7 @@ public class AcessoServidor<T> extends Thread {
 
 		if (ConexaoUtil.isOnline(activity)) {
 
-			DefaultHttpClient httpclient = new HttpClient();
+			DefaultHttpClient httpclient = new DefaultHttpClient();//TODO analisar esse cliente
 
 			HttpPost httppostreq = new HttpPost(url);
 

@@ -15,10 +15,10 @@ public class DefaultMessage implements Serializable {
 	public void setUsuario(UsuarioApp usuario) {
 		this.usuario = usuario;
 	}
-	public Exception getErro() {
+	public Exception getException() {
 		return erro;
 	}
-	public void setErro(Exception erro) {
+	public void setException(Exception erro) {
 		this.erro = erro;
 	}
 

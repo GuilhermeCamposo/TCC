@@ -27,7 +27,8 @@ public class UsuarioBean {
 	@PersistenceContext(unitName = "achoufestas")
 	private EntityManager session;
 
-	private static final Logger LOG = Logger.getLogger(UsuarioBean.class.getName());
+	private static final Logger LOG = Logger.getLogger(UsuarioBean.class
+			.getName());
 
 	public boolean associarUsuarioEvento(Long idEvento, Long idUsuario) {
 
@@ -45,21 +46,24 @@ public class UsuarioBean {
 
 	public boolean desassociarUsuarioEvento(Long idEvento, Long idUsuario) {
 
-	//TODO remover a relação do usuário com o evento
-
+		session.createNativeQuery("delete from usuario_evento where id_usuario = :usuario and id_evento= :evento ")
+				.setParameter("usuario", idUsuario)
+				.setParameter("evento", idEvento).executeUpdate();
+		
 		return false;
 	}
 
-	
 	/**
-	 *  Deve trazer os eventos em que o usuário foi marcado
+	 * Deve trazer os eventos em que o usuário foi marcado
+	 * 
 	 * @param email
 	 * @param senha
 	 * @return
 	 * @throws DALException
 	 */
 	public Usuario logarUsuario(String email, String senha) throws DALException {
-		StringBuilder sb = new StringBuilder("SELECT u ").append("FROM Usuario u ").append("WHERE u.email=? and senha=?");
+		StringBuilder sb = new StringBuilder("SELECT u ").append(
+				"FROM Usuario u ").append("WHERE u.email=? and senha=?");
 		try {
 			Query q = session.createQuery(sb.toString());
 			q.setParameter(1, email).setParameter(2, senha);

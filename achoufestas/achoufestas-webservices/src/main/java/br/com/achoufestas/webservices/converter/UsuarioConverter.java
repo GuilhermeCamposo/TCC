@@ -7,6 +7,9 @@ public class UsuarioConverter {
 
 	public static Usuario toDatabase(UsuarioApp app){
 		Usuario usuario = new Usuario();
+		usuario.setEmail(app.getEmail());
+		usuario.setNome(app.getNome());
+		usuario.setSenha(app.getSenha());
 		
 		return usuario;
 	}
@@ -16,7 +19,7 @@ public class UsuarioConverter {
 		app.setEmail(usuario.getEmail());
 		app.setNome(usuario.getNome());
 		app.setIdUsuario(usuario.getIdUsuario());
-		
+		app.setEventosMarcados(EventoConverter.toApp(usuario.getEventos()));
 		return app;
 	}
 	

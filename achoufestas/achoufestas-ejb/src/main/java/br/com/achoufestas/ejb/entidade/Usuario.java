@@ -2,7 +2,7 @@ package br.com.achoufestas.ejb.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -49,11 +49,11 @@ public class Usuario implements Serializable  {
     @OneToOne(mappedBy="usuario", optional=true, fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private Produtor produtor;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_evento",	joinColumns = { 
 					@JoinColumn(name = "id_usuario") }, inverseJoinColumns = { 
 					@JoinColumn(name = "id_evento") })
-	private Set<Evento> eventos;
+	private List<Evento> eventos;
 
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -103,11 +103,11 @@ public class Usuario implements Serializable  {
 		this.produtor = produtor;
 	}
 
-	public Set<Evento> getEventos() {
+	public List<Evento> getEventos() {
 		return eventos;
 	}
 
-	public void setEventos(Set<Evento> eventos) {
+	public void setEventos(List<Evento> eventos) {
 		this.eventos = eventos;
 	}
 
