@@ -6,7 +6,7 @@ import br.com.achoufestas.lib.entidades.UsuarioApp;
 
 public class DefaultMessage implements Serializable {
 
-	private Exception erro;
+	private String erro;
 	private UsuarioApp usuario;
 	
 	public UsuarioApp getUsuario() {
@@ -15,10 +15,10 @@ public class DefaultMessage implements Serializable {
 	public void setUsuario(UsuarioApp usuario) {
 		this.usuario = usuario;
 	}
-	public Exception getException() {
+	public String getException() {
 		return erro;
 	}
-	public void setException(Exception erro) {
+	public void setException(String erro) {
 		this.erro = erro;
 	}
 

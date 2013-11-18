@@ -19,7 +19,7 @@ public class EventoConverter {
 			evento = new EventoApp();
 			evento.setIdEvento(eventoEntity.getIdEvento());
 			evento.setDataEvento(format.format(eventoEntity.getDataEvento()));
-			evento.setFoto("http://www.competiracores.com/img/no-photo.jpg");
+			evento.setFotoUrl("http://www.competiracores.com/img/no-photo.jpg");
 			//TODO remover gambi
 			evento.setNome(eventoEntity.getNome());
 			evento.setDescricao(eventoEntity.getDescricao());

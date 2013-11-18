@@ -18,7 +18,7 @@ import br.com.achoufestas.lib.messages.MarcacaoEventoMessage;
 
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
-public class EventoActivity extends ActivityLayer  implements OnClickListener {
+public class EventoActivity extends ActivityLayer implements OnClickListener {
 
 	private EventoApp evento;
 	private Button button;
@@ -29,7 +29,7 @@ public class EventoActivity extends ActivityLayer  implements OnClickListener {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.evento);
-		
+
 		Bundle extras = getIntent().getExtras();
 		evento = (EventoApp) extras.getSerializable("evento");
 		user = (UsuarioApp) extras.getSerializable("user");
@@ -37,21 +37,24 @@ public class EventoActivity extends ActivityLayer  implements OnClickListener {
 		TextView nome = (TextView) findViewById(R.id.txtEventName);
 		TextView local = (TextView) findViewById(R.id.txtEventLocal);
 		TextView description = (TextView) findViewById(R.id.txtEventDescription);
-	
+		TextView data = (TextView) findViewById(R.id.evento_txt_data);
+
 		button = (Button) findViewById(R.id.btnEventGoing);
 		button.setOnClickListener(this);
 
 		ImageView imagem = (ImageView) findViewById(R.id.evento_iv_flayer);
 
-		UrlImageViewHelper.setUrlDrawable(imagem, evento.getFoto());
-		
-		if (user.getEventosMarcados() != null && user.getEventosMarcados().contains(evento)) {
+		UrlImageViewHelper.setUrlDrawable(imagem, evento.getFotoUrl());
+
+		if (user.getEventosMarcados() != null
+				&& user.getEventosMarcados().contains(evento)) {
 			button.setText(R.string.going);
 		}
-		
+
 		nome.setText(evento.getNome());
 		local.setText(evento.getLocal());
 		description.setText(evento.getDescricao());
+		data.setText(evento.getDataEvento());
 	}
 
 	@Override
@@ -64,30 +67,33 @@ public class EventoActivity extends ActivityLayer  implements OnClickListener {
 			mensagemAviso(message.getException().getMessageResource());
 
 		} else {
-			DefaultMessage dmessage = (DefaultMessage) message.getOriginalMessage();
+			DefaultMessage dmessage = (DefaultMessage) message
+					.getOriginalMessage();
 			if (dmessage.getException() != null) {
 				mensagemAviso(new GenericException().getMessageResource());
-			}else{
+			} else {
 				button.setText(R.string.going);
 				button.refreshDrawableState();
-			}	
+			}
 		}
 		Looper.loop();
 	}
-	
+
 	public void onClick(View v) {
 		Button botao = (Button) v;
-		
+
 		AcessoServidor<DefaultMessage> thread = null;
 		MarcacaoEventoMessage message = new MarcacaoEventoMessage();
-	
+
 		message.setIdEvento(evento.getIdEvento());
-		message.setIdUsuario(user.getIdUsuario());		
+		message.setIdUsuario(user.getIdUsuario());
 
 		if (botao.getText().toString().equals("Ir")) {
-			thread = new AcessoServidor<DefaultMessage>(this, message, AcessoServidor.URL_MARCAR_EVENTO, new DefaultMessage());
+			thread = new AcessoServidor<DefaultMessage>(this, message,
+					AcessoServidor.URL_MARCAR_EVENTO, new DefaultMessage());
 		} else {
-			thread = new AcessoServidor<DefaultMessage>(this, message, AcessoServidor.URL_DESMARCAR_EVENTO, new DefaultMessage());
+			thread = new AcessoServidor<DefaultMessage>(this, message,
+					AcessoServidor.URL_DESMARCAR_EVENTO, new DefaultMessage());
 		}
 		thread.start();
 	}

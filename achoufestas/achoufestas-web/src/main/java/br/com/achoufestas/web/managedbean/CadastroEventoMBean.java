@@ -38,6 +38,7 @@ public class CadastroEventoMBean extends DefaultMBean{
 				eventoNovo.setIdProdutor(this.getUsuarioLogado().getIdUsuario());
 				eventoBean.salvarEvento(eventoNovo);
 		    	exibirMensagemSucesso("Cadastro do Evento efetuado com sucesso !");
+		    	eventoNovo = new Evento();
 			}else{
 	    		exibirMensagemAviso("Faça seu login para cadastrar um novo evento.");
 			}

@@ -1,5 +1,6 @@
 package br.com.achoufestas.android.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
@@ -14,21 +15,38 @@ import br.com.achoufestas.lib.entidades.UsuarioApp;
 import br.com.achoufestas.lib.messages.LoginMessage;
 
 public class AchouFestas extends ActivityLayer implements OnClickListener {
+	
+	Activity instance;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.login);
+		instance = this;
 
 		Button btnLogar = (Button) findViewById(R.id.btnLogar);
 		btnLogar.setOnClickListener(this);
 
+		Button btnCadastrar = (Button) findViewById(R.id.login_btn_cadastrar);
+		
+		btnCadastrar.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(instance, CadastroUsuarioActivity.class);
+				startActivity(intent);
+				finish();
+			}
+		});
+		
+		//TODO remove mock
 		EditText senha = (EditText) findViewById(R.id.textSenha);
 		EditText login = (EditText) findViewById(R.id.textLogin);
-
 		senha.setText("123");
 		login.setText("admin");
+		//
+		
 	}
 
 

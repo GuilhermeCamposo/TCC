@@ -6,13 +6,21 @@ public class EventoApp implements Serializable {
 
 	private static final long serialVersionUID = -4207843862422476341L;
 	private Long idEvento;
-	private String  nome , local, descricao, foto , dataEvento ;
+	private String  nome , local, descricao, foto , dataEvento , fotoMiniUrl;
 	
-	public String getFoto() {
+	public String getFotoUrl() {
 		return foto;
 	}
+	
+	public String getFotoMiniUrl() {
+		return fotoMiniUrl;
+	}
 
-	public void setFoto(String foto) {
+	public void setFotoMiniUrl(String fotoMiniUrl) {
+		this.fotoMiniUrl = fotoMiniUrl;
+	}
+
+	public void setFotoUrl(String foto) {
 		this.foto = foto;
 	}
 

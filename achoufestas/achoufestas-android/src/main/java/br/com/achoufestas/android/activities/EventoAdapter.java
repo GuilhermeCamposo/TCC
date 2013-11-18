@@ -16,6 +16,8 @@ import br.com.achoufestas.android.R;
 import br.com.achoufestas.lib.entidades.EventoApp;
 import br.com.achoufestas.lib.entidades.UsuarioApp;
 
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
+
 public class EventoAdapter extends ArrayAdapter<EventoApp> {
 
 	private List<EventoApp> items;
@@ -49,14 +51,15 @@ public class EventoAdapter extends ArrayAdapter<EventoApp> {
 		if (evento != null) {
 			TextView local = (TextView) view.findViewById(R.id.lblLocal);
 			TextView nome = (TextView) view.findViewById(R.id.lblNome);
+			TextView data = (TextView) view.findViewById(R.id.evento_adapter_txt_data);
 		
 			ImageView imagem = (ImageView) view.findViewById(R.id.ivFlayer);
-
-			//UrlImageViewHelper.setUrlDrawable(imagem, evento.getFoto());
+			UrlImageViewHelper.setUrlDrawable(imagem, evento.getFotoMiniUrl());
 			
 			imagem.setOnClickListener(new ImageListener(evento));
 			
 			nome.setText(evento.getNome());
+			data.setText(evento.getDataEvento());
 			local.setText(evento.getLocal());
 		}
 		return view;

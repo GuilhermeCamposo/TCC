@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 import br.com.achoufestas.ejb.bean.EventoBean;
 import br.com.achoufestas.ejb.bean.UsuarioBean;
 import br.com.achoufestas.ejb.entidade.Usuario;
-import br.com.achoufestas.ejb.expection.DALException;
+import br.com.achoufestas.ejb.enumeration.EStatus;
 import br.com.achoufestas.lib.entidades.Coordenada;
 import br.com.achoufestas.lib.entidades.UsuarioApp;
 import br.com.achoufestas.lib.messages.DefaultMessage;
@@ -49,7 +49,7 @@ public class AchouFestasResource {
 							coordenada.getLongitude())));
 		} catch (Exception e) {
 			e.printStackTrace();
-			eventos.setException(e);
+			eventos.setException(e.getMessage());
 		}
 
 		return eventos;
@@ -102,7 +102,7 @@ public class AchouFestasResource {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			message.setException(e);
+			message.setException(e.getMessage());
 		}
 
 		return message;
@@ -119,10 +119,11 @@ public class AchouFestasResource {
 		DefaultMessage message = new DefaultMessage();
 
 		try {
-			usuarioBean.salvarUsuario(UsuarioConverter.toDatabase(user));
-
-		} catch (DALException e) {
-			message.setException(new Exception());
+			Usuario entity = UsuarioConverter.toDatabase(user);
+			entity.setStatus(EStatus.ATIVO.getCodigo());
+			usuarioBean.salvarUsuario(entity);
+		} catch (Exception e) {
+			message.setException(e.getMessage());
 		}
 
 		return message;
@@ -141,7 +142,7 @@ public class AchouFestasResource {
 			usuarioBean.associarUsuarioEvento(message.getIdEvento(),
 					message.getIdUsuario());
 		} catch (Exception e) {
-			dmessage.setException(e);
+			dmessage.setException(e.getMessage());
 		}
 
 		return dmessage;
@@ -157,7 +158,7 @@ public class AchouFestasResource {
 			usuarioBean.desassociarUsuarioEvento(message.getIdEvento(),
 					message.getIdUsuario());
 		} catch (Exception e) {
-			dmessage.setException(e);
+			dmessage.setException(e.getMessage());
 		}
 
 		return dmessage;
