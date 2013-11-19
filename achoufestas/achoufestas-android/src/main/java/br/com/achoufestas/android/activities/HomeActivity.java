@@ -1,6 +1,5 @@
 package br.com.achoufestas.android.activities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -33,7 +32,7 @@ public class HomeActivity extends ActivityLayer implements LocationListener {
 	private UsuarioApp user;
 
 	LocationManager locationManager;
-	boolean mock = true;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class HomeActivity extends ActivityLayer implements LocationListener {
 		LoginMessage message = (LoginMessage) extras.getSerializable("message");
 		btnProx = (Button) findViewById(R.id.btnNear);
 		btnBuscaNome = (Button) findViewById(R.id.btnSearchName);
-		user= message.getUsuario();
+		user = message.getUsuario();
 		instance = this;
 
 		eventos = message.getEventos();
@@ -58,34 +57,22 @@ public class HomeActivity extends ActivityLayer implements LocationListener {
 			public void onClick(View v) {
 
 				locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-				if (mock) {
-
-					ListagemEventosMessage list = new ListagemEventosMessage();
-
-					List<EventoApp> ev = new ArrayList<EventoApp>();
-
-					EventoApp ev1 = new EventoApp();
-					ev1.setDescricao("Loreiupson");
-					ev1.setNome("Festa 111111111");
-
-					EventoApp ev2 = new EventoApp();
-					ev2.setDescricao("Loreiupson");
-					ev2.setNome("Festa 222222");
-
-					ev.add(ev1);
-					ev.add(ev2);
-
-					list.setEventos(ev);
-
-					eventos = list.getEventos();
-					atualizarListView();
-					listView.refreshDrawableState();
-				} else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+				
+				if (locationManager
+						.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 					mostrarLoading(instance);
-					locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, GeoLocationConf.MINIMUM_TIME_BETWEEN_UPDATES, GeoLocationConf.MINIMUM_DISTANCE_CHANGE_FOR_UPDATES, instance);
-					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, GeoLocationConf.MINIMUM_TIME_BETWEEN_UPDATES, GeoLocationConf.MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-							instance);
+					locationManager
+							.requestLocationUpdates(
+									LocationManager.GPS_PROVIDER,
+									GeoLocationConf.MINIMUM_TIME_BETWEEN_UPDATES,
+									GeoLocationConf.MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+									instance);
+					locationManager
+							.requestLocationUpdates(
+									LocationManager.NETWORK_PROVIDER,
+									GeoLocationConf.MINIMUM_TIME_BETWEEN_UPDATES,
+									GeoLocationConf.MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+									instance);
 
 				} else {
 					mensagemAviso(R.string.gps_inativo);
@@ -97,13 +84,16 @@ public class HomeActivity extends ActivityLayer implements LocationListener {
 
 			public void onClick(View v) {
 
-				String busca = ((EditText) findViewById(R.id.editTextName)).getText().toString();
-				
-				AcessoServidor<ListagemEventosMessage> thread = new AcessoServidor<ListagemEventosMessage>(instance, busca, AcessoServidor.URL_BUSCA_POR_NOME, new ListagemEventosMessage());
+				String busca = ((EditText) findViewById(R.id.editTextName))
+						.getText().toString();
+
+				AcessoServidor<ListagemEventosMessage> thread = new AcessoServidor<ListagemEventosMessage>(
+						instance, busca, AcessoServidor.URL_BUSCA_POR_NOME,
+						new ListagemEventosMessage());
 				thread.start();
-		} }); 
-		
-		
+			}
+		});
+
 	}
 
 	/**
@@ -117,7 +107,9 @@ public class HomeActivity extends ActivityLayer implements LocationListener {
 		coordenda.setLatitude(location.getLatitude());
 		coordenda.setLongitude(location.getLongitude());
 
-		AcessoServidor<ListagemEventosMessage> thread = new AcessoServidor<ListagemEventosMessage>(instance, coordenda, AcessoServidor.URL_BUSCA_POR_COORDENADA, new ListagemEventosMessage());
+		AcessoServidor<ListagemEventosMessage> thread = new AcessoServidor<ListagemEventosMessage>(
+				instance, coordenda, AcessoServidor.URL_BUSCA_POR_COORDENADA,
+				new ListagemEventosMessage());
 		thread.start();
 	}
 
@@ -126,7 +118,8 @@ public class HomeActivity extends ActivityLayer implements LocationListener {
 	 */
 	private void atualizarListView() {
 		try {
-			EventoAdapter adapter = new EventoAdapter(instance, android.R.layout.simple_list_item_1, eventos);
+			EventoAdapter adapter = new EventoAdapter(instance,
+					android.R.layout.simple_list_item_1, eventos);
 			listView.setAdapter(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();

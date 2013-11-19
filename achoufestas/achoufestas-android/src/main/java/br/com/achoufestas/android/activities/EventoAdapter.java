@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.achoufestas.android.R;
 import br.com.achoufestas.lib.entidades.EventoApp;
@@ -58,10 +59,16 @@ public class EventoAdapter extends ArrayAdapter<EventoApp> {
 			
 			imagem.setOnClickListener(new ImageListener(evento));
 			
+			if(user.getEventosMarcados() != null && user.getEventosMarcados().contains(evento)){
+				LinearLayout layout = (LinearLayout)view.findViewById(R.id.evento_adapter_bg);
+				layout.setBackgroundResource(R.color.azul_claro);
+			}
+			
 			nome.setText(evento.getNome());
 			data.setText(evento.getDataEvento());
 			local.setText(evento.getLocal());
 		}
+		
 		return view;
 	}
 

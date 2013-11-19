@@ -95,6 +95,7 @@ public class EventoActivity extends ActivityLayer implements OnClickListener {
 			thread = new AcessoServidor<DefaultMessage>(this, message,
 					AcessoServidor.URL_DESMARCAR_EVENTO, new DefaultMessage());
 		}
+		mostrarLoading(this);
 		thread.start();
 	}
 

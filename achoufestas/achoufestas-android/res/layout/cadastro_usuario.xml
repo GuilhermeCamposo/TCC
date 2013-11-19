@@ -16,6 +16,7 @@
         android:id="@+id/cadastro_etxt_nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/cadastro_txt_nome"
         android:ems="10" />
 
@@ -24,15 +25,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cadastro_etxt_nome"
-        android:text="E-mail" 
-        android:textAppearance="?android:attr/textAppearanceLarge"  />
+        android:text="E-mail"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android:id="@+id/cadastro_etxt_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/cadastro_etxt_nome"
+        android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/cadastro_txt_email"
-          android:layout_below="@+id/cadastro_etxt_nome"
         android:ems="10" />
 
     <TextView
@@ -41,14 +43,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/cadastro_etxt_email"
         android:text="Senha"
-        android:textAppearance="?android:attr/textAppearanceLarge"  />
-    
-      <EditText
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
         android:id="@+id/cadastro_etxt_senha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/cadastro_etxt_email"
+        android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/cadastro_txt_senha"
-          android:layout_below="@+id/cadastro_etxt_email"
         android:ems="10" />
 
     <Button

@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.achoufestas.android"
     android:versionCode="1"
-    android:versionName="1.0.0" >
+    android:versionName="1.0.0"
+     >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -17,7 +18,8 @@
 
     <application
         android:icon="@drawable/icon"
-        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        android:theme="@android:style/Theme.Light.NoTitleBar" 
+         android:label="Achou Festas" >
         <activity android:name="br.com.achoufestas.android.activities.SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

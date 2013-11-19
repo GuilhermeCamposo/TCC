@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -20,15 +18,12 @@ import br.com.achoufestas.android.exception.GenericException;
 import br.com.achoufestas.android.exception.SemConexaoException;
 import br.com.achoufestas.android.threads.message.EnvelopeMessage;
 import br.com.achoufestas.android.util.ConexaoUtil;
-import br.com.achoufestas.lib.entidades.EventoApp;
-import br.com.achoufestas.lib.messages.ListagemEventosMessage;
-import br.com.achoufestas.lib.messages.LoginMessage;
 
 import com.google.gson.Gson;
 
 public class AcessoServidor<T> extends Thread {
 
-	private static final String SERVER = "http://192.168.1.3:8080/achoufestas-webservices/achouFestaResource/";
+	private static final String SERVER = "http://192.168.1.4:8080/achoufestas-webservices/achouFestaResource/";
 	public static final String URL_LOGIN = SERVER + "login";
 	public static final String URL_BUSCA_POR_COORDENADA = SERVER + "busca_coordenada";
 	public static final String URL_BUSCA_POR_NOME = SERVER + "busca_nome";
@@ -43,8 +38,6 @@ public class AcessoServidor<T> extends Thread {
 	private EnvelopeMessage envelope = new EnvelopeMessage();
 
 	static Gson gson = new Gson();
-
-	private boolean mock = false;
 
 	public AcessoServidor(ActivityLayer activity, Object envio, String url, T tipoRetorno) {
 
@@ -68,49 +61,6 @@ public class AcessoServidor<T> extends Thread {
 	}
 
 	private void postToServer() throws ClientProtocolException, IOException {
-
-		if (mock) {
-			if (url.equals(URL_LOGIN)) {
-
-				LoginMessage eventos = new LoginMessage();
-
-				List<EventoApp> ev = new ArrayList<EventoApp>();
-
-				EventoApp ev1 = new EventoApp();
-				ev1.setDescricao("Loreiupson");
-				ev1.setNome("Festa 1");
-
-				EventoApp ev2 = new EventoApp();
-				ev2.setDescricao("Loreiupson");
-				ev2.setNome("Festa 2");
-
-				ev.add(ev1);
-				ev.add(ev2);
-
-				eventos.setEventos(ev);
-
-				envelope.setOriginalMessage(eventos);
-			}
-			if (url.equals(URL_BUSCA_POR_COORDENADA)) {
-				ListagemEventosMessage eventos = new ListagemEventosMessage();
-
-				List<EventoApp> ev = new ArrayList<EventoApp>();
-
-				EventoApp ev1 = new EventoApp();
-				ev1.setDescricao("Loreiupson");
-				ev1.setNome("Festa 111111111");
-
-				EventoApp ev2 = new EventoApp();
-				ev2.setDescricao("Loreiupson");
-				ev2.setNome("Festa 222222");
-
-				ev.add(ev1);
-				ev.add(ev2);
-
-				eventos.setEventos(ev);
-				envelope.setOriginalMessage(eventos);
-			}
-		} else
 
 		if (ConexaoUtil.isOnline(activity)) {
 
