@@ -3,7 +3,9 @@ package br.com.achoufestas.web.managedbean;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import br.com.achoufestas.ejb.entidade.Usuario;
@@ -19,6 +21,12 @@ public class DefaultMBean implements Serializable {
 	
 	protected HttpSession getSession() {
 		return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	}
+	
+	
+	protected ServletContext getServletContext(){
+	    ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();    
+	    return (ServletContext)externalContext.getContext(); 
 	}
 	
 	protected Object getSessionObject(SessionKeys session) {
