@@ -20,6 +20,13 @@
 			<to-view-id>/pages/cadastro_evento.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>meuseventos</from-outcome>
+			<to-view-id>/pages/meus_eventos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
 		<navigation-case>
 			<from-outcome>principal</from-outcome>
 			<to-view-id>/pages/principal.xhtml</to-view-id>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+	<h:body>
+		<ui:composition template="/layout/template.xhtml">
+			<ui:define name="conteudo">
+			
+			  <h:outputStylesheet>
+		        .even-row {
+		        background-color: #FCFFFE;
+		        }
+		 
+		        .odd-row {
+		        background-color: #ECF3FE;
+		        }
+		 
+		        .active-row {
+		        background-color: #FFEBDA !important;
+		        cursor: pointer;
+		        }
+	   		 </h:outputStylesheet>
+    
+				<h:form id="meus_eventos" prependId="false">
+					<fieldset  style="float: left; width: 400px">
+							<legend>Meus eventos</legend>
+							
+								<rich:dataTable value="#{eventoMBean.eventosList}" var="evento" id="table" rows="20" rowClasses="odd-row, even-row"
+						            styleClass="stable">
+						            <rich:column>
+						                <f:facet name="header">
+						                    <h:outputText value="Data cadastro" />
+						                </f:facet>
+						                <h:outputText value="#{evento.dataCadastro}" >
+						               		 <f:convertDateTime pattern="dd/MM/yyyy"/>
+						                </h:outputText>
+						            </rich:column>
+						            <rich:column>
+						                <f:facet name="header">
+						                    <h:outputText value="Data Evento" />
+						                </f:facet>
+						                <h:outputText value="#{evento.dataEvento}" >
+						                	<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+						                </h:outputText>
+						            </rich:column>
+						            <rich:column>
+						                <f:facet name="header">
+						                    <h:outputText value="Descrição" />
+						                </f:facet>
+						                <h:outputText value="#{evento.descricao}" />
+						            </rich:column>
+						        </rich:dataTable>
+							
+							  	<rich:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
+							    <rich:jQuery selector=".stable tr:even" query="addClass('even-row')" />
+							    <rich:jQuery selector=".stable tr" event="mouseover" query="jQuery(this).addClass('active-row')" />
+							    <rich:jQuery selector=".stable tr" event="mouseout" query="jQuery(this).removeClass('active-row')" />
+							
+					</fieldset>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</h:body>
+</f:view>

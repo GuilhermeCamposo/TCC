@@ -142,13 +142,4 @@ jQuery.fn.extend({
 		});
 	}
 });
-
-function mostrarMenuLateral(){
-	document.getElementById('navegue_on').style.display="block";
-	document.getElementById('navegue').style.display="none";
-}	
-function esconderMenuLateral(){
-	document.getElementById('navegue').style.display="block";
-	document.getElementById('navegue_on').style.display="none";
-}
 	

@@ -42,8 +42,24 @@ public class EventoBean  {
 	public List<Evento> getEventoByUser(Long idUsuario) throws DALException {
 		List<Evento> eventoList = null;
 		try {
-			eventoList = (List<Evento>) session.createQuery("select e from Evento e where usuarios.idUsuario = ?")
+			eventoList = (List<Evento>) session.createQuery("select e from Evento e where e.usuarios.idUsuario = ?")
 						.setParameter(1, idUsuario)
+						.getResultList();
+
+		} catch (Exception e) {
+			throw new DALException(e);
+		}
+
+		return eventoList;
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Evento> getEventoByProdutor(Long idProdutor) throws DALException {
+		List<Evento> eventoList = null;
+		try {
+			eventoList = (List<Evento>) session.createQuery("select e from Evento e where e.idProdutor = ?")
+						.setParameter(1, idProdutor)
 						.getResultList();
 
 		} catch (Exception e) {

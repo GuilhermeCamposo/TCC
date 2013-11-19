@@ -14,35 +14,167 @@
 		<ui:composition template="/layout/template.xhtml">
 			<ui:define name="conteudo">
 
-				<div id="cadastro_evento" style="float: left; width: 400px">
+					<script	src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=true" />
+			<script>
+		   			var map;
+		
+				function initialize() {
+				  var mapOptions = {
+				    zoom: 6,
+				    mapTypeId: google.maps.MapTypeId.ROADMAP
+				  };
+				  map = new google.maps.Map(document.getElementById('map_canvas'),
+				      mapOptions);
+				
+				  // Try HTML5 geolocation
+				  if(navigator.geolocation) {
+				    navigator.geolocation.getCurrentPosition(function(position) {
+				      var pos = new google.maps.LatLng(position.coords.latitude,
+				                                       position.coords.longitude);
+				
+				      var infowindow = new google.maps.InfoWindow({
+				        map: map,
+				        position: pos,
+				        content: 'Verifique se o lugar está correto no mapa.'
+				      });
+				
+				      map.setCenter(pos);
+				    }, function() {
+				      handleNoGeolocation(true);
+				    });
+				  } else {
+				    // Browser doesn't support Geolocation
+				    handleNoGeolocation(false);
+				  }
+				}
+				
+				function handleNoGeolocation(errorFlag) {
+				  if (errorFlag) {
+				    var content = 'Error: The Geolocation service failed.';
+				  } else {
+				    var content = 'Error: Your browser doesn\'t support geolocation.';
+				  }
+				
+				  var options = {
+				    map: map,
+				    position: new google.maps.LatLng(60, 105),
+				    content: content
+				  };
+				
+				  var infowindow = new google.maps.InfoWindow(options);
+				  map.setCenter(options.position);
+				}
+				
+				google.maps.event.addDomListener(window, 'load', initialize);
+
+				function carregarEndereco(){
+					var lat,lng;
+					var endereco = document.getElementById('endereco').value ;
+					geocoder = new google.maps.Geocoder();
+					geocoder.geocode({'address':endereco}, function(results, status){
+						if(status = google.maps.GeocoderStatus.OK){
+							latlng = results[0].geometry.location;
+							lat = results[0].geometry.location.lat();
+							lng = results[0].geometry.location.lng();
+							markerInicio = new google.maps.Marker({position: latlng,map: map});
+							map.setCenter(latlng);
+							document.getElementById('latitude').value  = lat;
+							document.getElementById('longitude').value  = lng;
+						}else{
+							document.getElementById('latitude').value  = '';
+							document.getElementById('longitude').value  = '';
+						}
+					});
+				}
+		
+		    </script>
+
 					<h:form id="cadastro_evento" prependId="false">
-						<fieldset>
+						<fieldset  style="float: left; width: 400px">
 							<legend>Cadastre o evento</legend>
-
-							<label>Nome:</label>
-							<h:inputText id="nome"
-								value="#{cadastroEventoMBean.eventoNovo.nome}" />
-							<br /> <label>Descrição:</label>
-							<h:inputText id="descricao"
-								value="#{cadastroEventoMBean.eventoNovo.descricao}" />
-							<br /> <label>Data do Evento:</label>
-							<h:inputText id="data_fim"
-								value="#{cadastroEventoMBean.eventoNovo.dataEvento}">
-								<f:convertDateTime pattern="dd/MM/yyyy" />
-							</h:inputText>
-							<br />
-
-
-							<h:commandButton id="cadastrar_evento" render="exibeMensagem"
-								onCompleted="#{rich:component('exibeMensagem')}.show();"
-								value="CADASTRAR"
-								action="#{cadastroEventoMBean.cadastrarEvento()}" />
-						</fieldset>
-					</h:form>
-				</div>
-
-				<div id="map_canvas"
-					style="float: left; width: 300px; height: 354px; margin-left: 40px" />
+								<div id="cadastro_evento">
+	
+								<label>Nome:</label>
+								<h:inputText id="nome"
+									value="#{cadastroEventoMBean.eventoNovo.nome}" />
+								<br /> <label>Descrição:</label>
+								<h:inputText id="descricao"
+									value="#{cadastroEventoMBean.eventoNovo.descricao}" />
+								<br />
+								 <a4j:outputPanel layout="block">
+								 <label>Data do Evento:</label>
+					                <rich:calendar value="#{cadastroEventoMBean.eventoNovo.dataEvento}" id="data_evento" locale="pt_BR"
+					                    popup="true" datePattern="dd/MM/yyyy hh:mm a"
+					                    cellWidth="24px" cellHeight="22px" style="width:200px"
+					                    >
+					                </rich:calendar>
+           					 	</a4j:outputPanel>
+								
+								<label>Endereço:</label>
+						         		<h:inputText id="endereco" value="#{cadastroEventoMBean.eventoNovo.endereco.logradouro}"> 	
+						         			<f:ajax execute="@this" event="change" render="longitude latitude" onevent="carregarEndereco" />
+						         		</h:inputText>
+						            	<br />
+						            	
+						            <label>Complemento:</label>
+						         		<h:inputText id="complemento" value="#{cadastroEventoMBean.eventoNovo.endereco.complemento}" /> 	
+						            	<br />	
+						            	
+						            <label>CEP:</label>
+						         		<h:inputText id="cep" value="#{cadastroEventoMBean.eventoNovo.endereco.cep}" /> 	
+						            	<br />	
+						            	
+						            <label>Bairro:</label>
+						         		<h:inputText id="bairro" value="#{cadastroEventoMBean.eventoNovo.endereco.bairro}" /> 	
+						            	<br />	
+						            	
+						            <label>Cidade:</label>
+						         		<h:inputText id="cidade" value="#{cadastroEventoMBean.eventoNovo.endereco.cidade}" /> 	
+						            	<br />
+						            
+						            <label>Longitute:</label>
+						         		<h:inputText id="longitude" value="#{cadastroEventoMBean.eventoNovo.endereco.longitude}" /> 	
+						            	<br />
+						            	
+						            <label>Latitude:</label>
+						         		<h:inputText id="latitude" value="#{cadastroEventoMBean.eventoNovo.endereco.latitude}" /> 	
+						            	<br />	
+	
+						            <label>Imagens:</label>
+						            
+									<rich:fileUpload id="img_pequena" 
+											listHeight="1"
+											addLabel="Escolha uma imagem pequena..." 
+											fileUploadListener="#{cadastroEventoMBean.uploadListenerP}" 
+											acceptedTypes="jpg, gif, png, bmp"
+						                	ontyperejected="alert('Somente imagens JPG, GIF, PNG e BMP são aceitas');" 
+						                	maxFilesQuantity="1" allowFlash="false">
+						                <a4j:ajax event="uploadcomplete" execute="@none" />
+						            </rich:fileUpload>
+						            
+						            <rich:fileUpload id="img_normal" 
+							            	listHeight="1" 
+							            	addLabel="Escolha uma imagem..." 
+							            	fileUploadListener="#{cadastroEventoMBean.uploadListenerG}" 
+							            	acceptedTypes="jpg, gif, png, bmp"
+							                ontyperejected="alert('Somente imagens JPG, GIF, PNG e BMP são aceitas');" 
+							                maxFilesQuantity="1" 
+							                allowFlash="false">
+						                <a4j:ajax event="uploadcomplete" execute="@none" />
+						            </rich:fileUpload>
+						            
+						            	<br />	
+						            	
+									<h:commandButton id="cadastrar_evento" render="exibeMensagem"
+										onCompleted="#{rich:component('exibeMensagem')}.show();"
+										value="CADASTRAR"
+										action="#{cadastroEventoMBean.cadastrarEvento()}" />
+								</div>
+									
+							</fieldset>
+							
+								<h:panelGroup layout="block" id="map_canvas" style="float: left; width: 300px; height: 354px; margin-left: 40px" />
+						</h:form>
 			</ui:define>
 		</ui:composition>
 	</h:body>

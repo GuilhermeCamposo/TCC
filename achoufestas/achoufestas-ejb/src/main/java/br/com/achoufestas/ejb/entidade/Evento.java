@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,6 +45,10 @@ public class Evento implements Serializable {
 	
 	@Column(name = "id_produtor", nullable= false)
 	private Long idProdutor;
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="id_endereco")
+	private Endereco endereco;
 	
 	@ManyToOne
 	@JoinColumn(name="id_produtor", referencedColumnName="id_usuario", insertable=false, updatable=false, nullable=false)
@@ -129,7 +134,15 @@ public class Evento implements Serializable {
 	public void setIdProdutor(Long idProdutor) {
 		this.idProdutor = idProdutor;
 	}
-	
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
 	@Override
 	public int hashCode() {
